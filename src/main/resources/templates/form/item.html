@@ -37,7 +37,21 @@
         <label for="quantity">수량</label>
         <input type="text" id="quantity" name="quantity" class="form-control" value="10" th:value="${item.quantity}" readonly>
     </div>
+    <hr class="my-4">
+    <!-- single checkbox -->
+    <div>판매 여부</div>
+    <div>
+        <div class="form-check">
+            <!-- th:object 가 아니므로 *{open} 대신 ${item.open} 사용 -->
+            <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">판매 오픈</label>
+            <!-- checked="checked"
+            체크 박스에서 판매 여부를 선택해서 저장하면, 조회시에 checked 속성이 추가된 것을 확인할 수 있다.
+            타임리프의 th:field 를 사용하면, 값이 true 인 경우 체크를 자동으로 처리해준다.
 
+            -->
+        </div>
+    </div>
     <hr class="my-4">
 
     <div class="row">
