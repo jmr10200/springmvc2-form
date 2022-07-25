@@ -105,6 +105,29 @@
             -->
         </div>
 
+        <!-- radio button -->
+        <div>
+            <div>상품 종류</div>
+            <!-- ${T(패키지.파일명).values()}
+                 SpringEL 문법으로 타임리프에서 바로 ENUM 타입 접근 가능하다.
+                 ENUM 에 values() 를 호출하면 해당 ENUM 의 모든 정보가 배열로 반환된다.
+
+                 이러한 사용방법은 ENUM 의 패키지 위치가 변경 등이 있을 때
+                 자바 컴파일러가 타임리프까지 컴파일 오류를 잡을 수 없으므로 추천하지는 않는다. -->
+            <!-- <div th:each="type : ${T(hello.itemservice.domain.item.ItemType).values()}"> -->
+            <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{itemType}" th:value="${type.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+            </div>
+            <!--
+            음식 선택 했을 때 : itemType=FOOD
+            선택한 값이 없을 때 : item.itemType=null
+
+            체크박스는 수정시 체크를 해체하면 아무 값도 넘어가지 않아 히든 필드로 문제를 해결했지만,
+            라디오 버튼의 경우 이미 선택 되어 있다면, 수정시에도 항상 한가지를 선택하도록 되어 있으므로 별도의 히든 필드를 필요로하지 않는다.
+            -->
+        </div>
+
         <hr class="my-4">
 
         <div class="row">

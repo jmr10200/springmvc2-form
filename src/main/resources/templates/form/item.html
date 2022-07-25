@@ -65,6 +65,19 @@
             타임리프는 th:field 의 값과 th:value 의 값을 비교하여 체크를 처리해준다.
         -->
     </div>
+
+    <!-- radio button -->
+    <div>
+        <div>상품 종류</div>
+        <!-- th:object 가 아니므로 th:field 부분에 *{itemType} 대신 ${item.itemType}
+             상세화면에서는 선택 불가 : disabled 지정 -->
+        <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+            <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input" disabled>
+            <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+        </div>
+        <!-- 선택한 항목에 checked="checked" 가 설정되는 것 확인 -->
+    </div>
+
     <hr class="my-4">
 
     <div class="row">

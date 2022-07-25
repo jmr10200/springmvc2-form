@@ -2,6 +2,7 @@ package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,13 @@ public class FormItemController {
         // 각각의 컨트롤러 메소드에서 model 에 직접 담아서 처리해도 된다.
     }
 
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes() {
+        // itemTypes 를 등록 , 조회, 수정 에서 모두 사용하므로 @ModelAttribute 이용
+        // ItemType.values() 를 사용하면 해당 ENUM 의 모든 정보를 배열로 반환한다. 예) [BOOK, FOOD, ETC]
+        return ItemType.values();
+    }
+
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
@@ -67,6 +75,7 @@ public class FormItemController {
         redirectAttributes.addAttribute("status", true);
         log.info("item.open={}", item.getOpen());
         log.info("item.regions={}", item.getRegions());
+        log.info("item.itemType={}", item.getItemType());
         return "redirect:/form/items/{itemId}";
     }
 
