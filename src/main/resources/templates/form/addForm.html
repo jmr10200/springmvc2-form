@@ -72,6 +72,38 @@
                 -->
             </div>
         </div>
+        <!-- multi checkbox -->
+        <div>
+            <div>등록 지역</div>
+            <div th:each="region : ${regions}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
+                <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
+            </div>
+            <!-- th:for="${#ids.prev('regions')}"
+              멀티 체크박스는 같은 이름의 여러 체크박스를 만들 수 있다.
+              문제는 이렇게 반복해서 HTML 태그를 생성할 때,
+              생성된 HTML 태그 속성에서 name 은 같아도 되지만, id 는 모두 달라야 한다.
+              따라서 타임리프는 체크박스를 each 루프 안에서 반복해서 만들 때 임의로 1, 2, 3 숫자를 뒤에 붙여준다.
+
+              출력결과
+              <input type="checkbox" value="SEOUL" class="form-check-input" id="regions1" name="regions">
+              <input type="checkbox" value="BUSAN" class="form-check-input" id="regions2" name="regions">
+              <input type="checkbox" value="JEJU" class="form-check-input" id="regions3" name="regions">
+
+              HTML 의 id 가 타임리프에 의해 동적으로 만들어지기 때문에
+              <label for="id 값"> 으로 label 의 대상이 되는 id 값을 임의로 지정하는 것은 곤란하다.
+              타임리프는 ids.prev(...) , ids.next(...) 을 제공해서 동적으로 생성되는 id 값을 사용할 수 있도록 한다.
+
+              <label for="id 값"> 에 지정된 id 가 checkbox 에서 동적으로 생성된
+              regions1 , regions2 , regions3 에 맞추어 순서대로 입력된 것을 확인할 수 있다.
+
+              서울, 부산 선택 :  item.regions=[SEOUL, BUSAN]
+              지역 선택 x :  item.regions=[]
+
+              _regions 는 브라우저에서 체크를 하나도 하지 않았을 때, 클라이언트가 서버에 아무런 데이터를 보내지 않는 것을 방지한다.
+              _regions 항목명도 없으면 결과는 null 이 된다. 체크박스 수만큼 생성될 필요는 없지만, 타임리프가 옵션 수 만큼 생성하므로 무시해도 된다.
+            -->
+        </div>
 
         <hr class="my-4">
 

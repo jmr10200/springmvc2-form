@@ -41,16 +41,29 @@
     <!-- single checkbox -->
     <div>판매 여부</div>
     <div>
+        <!-- th:object 가 아니므로 *{open} 대신 ${item.open} 사용 -->
         <div class="form-check">
-            <!-- th:object 가 아니므로 *{open} 대신 ${item.open} 사용 -->
             <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
             <label for="open" class="form-check-label">판매 오픈</label>
-            <!-- checked="checked"
-            체크 박스에서 판매 여부를 선택해서 저장하면, 조회시에 checked 속성이 추가된 것을 확인할 수 있다.
-            타임리프의 th:field 를 사용하면, 값이 true 인 경우 체크를 자동으로 처리해준다.
-
-            -->
         </div>
+        <!-- checked="checked"
+          체크 박스에서 판매 여부를 선택해서 저장하면, 조회시에 checked 속성이 추가된 것을 확인할 수 있다.
+          타임리프의 th:field 를 사용하면, 값이 true 인 경우 체크를 자동으로 처리해준다.
+        -->
+    </div>
+    <!-- multi checkbox -->
+    <div>
+        <div>등록 지역</div>
+        <!-- th:object 를 사용하지 않았기 때문에 th:field 부분은 ${item.regions} -->
+        <!-- disabled : 상품 상세 페이지이므로 선택 불가능 -->
+        <div th:each="region : ${regions}" class="form-check form-check-inline">
+            <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-input" disabled>
+            <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
+        </div>
+        <!-- checked="checked"
+            멀티 체크 박스에서 등록 지역을 선택해서 저장하면, 조회시에 checked 속성이 추가된 것을 확인할 수 있다.
+            타임리프는 th:field 의 값과 th:value 의 값을 비교하여 체크를 처리해준다.
+        -->
     </div>
     <hr class="my-4">
 
