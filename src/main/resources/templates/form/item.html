@@ -78,6 +78,17 @@
         <!-- 선택한 항목에 checked="checked" 가 설정되는 것 확인 -->
     </div>
 
+    <!-- SELECT -->
+    <div>
+        <div>배송 방식</div>
+        <!-- th:object 가 아니므로 th:field 부분에 *{deliveryCode} 대신 ${item.deliveryCode}
+             상세화면에서는 선택 불가 : disabled 지정 -->
+        <select th:field="${item.deliveryCode}" class="form-select" disabled>
+            <option value="">==배송 방식 선택==</option>
+            <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}" th:text="${deliveryCode.deliveryName}">FAST</option>
+        </select>
+        <!-- 선택한 항목에 selected="selected" 가 설정되는 것 확인 -->
+    </div>
     <hr class="my-4">
 
     <div class="row">
